@@ -16,13 +16,13 @@ import matplotlib.pyplot as plt
 
 import plotly.express as px
 
-news = pd.read_pickle('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/processed_news.pkl')
+news = pd.read_pickle('processed_news.pkl')
 
 news = news[['date', 'headline', 'source', 'section', 'valence', 'arousal', 'dominance', 'concreteness', 'semantic_size']]
 
 news = news[news['section'].str.len() < 10]
 
-day = pd.read_pickle('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/processed_news_grouped_by_day.pkl')
+day = pd.read_pickle('processed_news_grouped_by_day.pkl')
 
 
 
@@ -51,7 +51,7 @@ h = sns.pointplot(x = 'source', y = 'valence', join = False, data = news)
 plt.xticks(rotation = 45, ha = 'right')
 
 plt.tight_layout()
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/title_plot_valence.png', dpi = 300)
+h.get_figure().savefig('title_plot_valence.png', dpi = 300)
 
 
 
@@ -129,7 +129,7 @@ h = sns.pointplot(x = 'source', y = 'arousal', hue = 'immigration', join = False
 plt.xticks(rotation = 45, ha = 'right')
 
 plt.tight_layout()
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/title_plot_imi_valence.png', dpi = 300)
+h.get_figure().savefig('title_plot_imi_valence.png', dpi = 300)
 
 
 plt.figure(figsize=(8,4))
@@ -137,7 +137,7 @@ h = sns.pointplot(x = 'source', y = 'valence', hue = 'immigration', join = False
 plt.xticks(rotation = 45, ha = 'right')
 
 plt.tight_layout()
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/title_plot_imi_valence.png', dpi = 300)
+h.get_figure().savefig('title_plot_imi_valence.png', dpi = 300)
 
 
 immig = news[news['immigration'] == "mentions immigration"].reset_index(drop = True)
@@ -152,49 +152,14 @@ plt.figure(figsize=(8,4))
 h = sns.lineplot(x = 'date', y = 'arousal rolling mean', hue = 'source', data = immig)
 sns.move_legend(h, "upper left", bbox_to_anchor=(1, 1))
 plt.tight_layout()
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/arousal_over_time_by_title.png', dpi = 300)
+h.get_figure().savefig('arousal_over_time_by_title.png', dpi = 300)
 
 
 plt.figure(figsize=(8,4))
 h = sns.lineplot(x = 'date', y = 'valence rolling mean', hue = 'source', data = immig)
 sns.move_legend(h, "upper left", bbox_to_anchor=(1, 1))
 plt.tight_layout()
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/valence_over_time_by_title.png', dpi = 300)
-
-
-
-
-
-
-clt = pd.read_excel('/Users/jamescarney/Downloads/CU_CLT_Anxiety_Survey_Data.xlsx')
-
-dvs = ['Impact_me',
-'Day_to_day_life', 'Next_6_months', 'Prevent_the_impact',
-'Changes_in_my_life', 'Need_to_make_changes']
-
-results = []
-
-for i in dvs:
-    md = smf.mixedlm(i+' ~ Climate_anxious', clt, groups=clt["Stimulus"]).fit()
-    results.append(md.summary())
-    
-for i in dvs:
-    md = smf.mixedlm(i+' ~ Anxiety_Score', clt, groups=clt["Stimulus"]).fit()
-    results.append(md.summary())
-    
-    
-with open("/Users/jamescarney/Downloads/CU_CLT_results.txt", "a") as f:
-    f.write('Linear Mixed Model Results\n\n\n')
-    
-
-for i in results:
-    with open("/Users/jamescarney/Downloads/CU_CLT_results.txt", "a") as f:
-        f.write("\n\n\'"+i.as_text())
-        
-    
-
-
-
+h.get_figure().savefig('valence_over_time_by_title.png', dpi = 300)
 
 
 
