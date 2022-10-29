@@ -42,7 +42,7 @@ plt.figure(figsize=(30,15))
 h = sns.pointplot(x = 'section', y = 'arousal', join = False, data = news)
 plt.xticks(rotation = 45, ha = 'right')
 
-h.get_figure().savefig('/Users/jamescarney/Desktop/Teaching_T1_2022/Qual_1a/section_plot.png', dpi = 300)
+h.get_figure().savefig('section_plot.png', dpi = 300)
 
 
 
