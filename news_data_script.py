@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 import plotly.express as px
 
-news = pd.read_pickle('processed_news.pkl')
+news = pd.read_pickle('small_news_data.pkl')
 
 news = news[['date', 'headline', 'source', 'section', 'valence', 'arousal', 'dominance', 'concreteness', 'semantic_size']]
 
